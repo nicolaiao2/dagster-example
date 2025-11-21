@@ -2,9 +2,53 @@
 
 A comprehensive example project demonstrating Dagster capabilities with CSV files and DuckDB.
 
-> **📚 New here?** Start with [INDEX.md](INDEX.md) for a complete documentation guide!
->
-> **🚀 Quick start:** Run `./setup.sh` then `dagster dev` → http://localhost:3000
+## ⚡ Quick Start (No Programming Knowledge Needed!)
+
+### Prerequisites
+- **Python 3.8 or higher** installed on your computer
+  - Windows: Download from [python.org](https://www.python.org/downloads/) (check "Add Python to PATH" during installation!)
+  - Mac: Usually pre-installed, or install via [python.org](https://www.python.org/downloads/)
+  - Linux: Usually pre-installed, or use `sudo apt install python3 python3-venv`
+
+### Setup Instructions
+
+#### 🪟 **Windows**
+1. Download or clone this project
+2. Open the project folder
+3. Double-click `setup.bat`
+4. Wait for installation to complete
+5. Run these commands in Command Prompt or PowerShell:
+   ```cmd
+   venv\Scripts\activate
+   dagster dev
+   ```
+6. Open your browser to **http://localhost:3000**
+
+#### 🐧 **Mac / Linux**
+1. Download or clone this project
+2. Open Terminal and navigate to the project folder:
+   ```bash
+   cd path/to/dagster-example
+   ```
+3. Run the setup script:
+   ```bash
+   chmod +x setup.sh
+   ./setup.sh
+   ```
+4. Start Dagster:
+   ```bash
+   source venv/bin/activate  # Activate if not already active
+   dagster dev
+   ```
+5. Open your browser to **http://localhost:3000**
+
+### 🎉 You're Done!
+Once Dagster is running, you'll see the web UI where you can:
+- View all data assets in a visual graph
+- Click any asset and press "Materialize" to run it
+- See the results and logs in real-time
+
+> **📚 Want to learn more?** Check out [INDEX.md](INDEX.md) for complete documentation!
 
 ## 🎯 Overview
 
@@ -42,28 +86,40 @@ dagster-example/
 └── setup.py
 ```
 
-## 🚀 Getting Started
+## 🚀 Manual Setup (Alternative)
 
-### 1. Install Dependencies
+If you prefer to set up manually or the automated script doesn't work:
+
+### 1. Create Virtual Environment
+
+**Windows:**
+```cmd
+python -m venv venv
+venv\Scripts\activate
+```
+
+**Mac/Linux:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 2. Install Dependencies
 
 ```bash
-# Create a virtual environment (optional but recommended)
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install the project
+pip install --upgrade pip
 pip install -e "."
 ```
 
-### 2. Launch Dagster UI
+### 3. Launch Dagster UI
 
 ```bash
 dagster dev
 ```
 
-Then open your browser to http://localhost:3000
+Then open your browser to **http://localhost:3000**
 
-### 3. Explore the Assets
+### 4. Explore the Assets
 
 The project includes several groups of assets:
 
@@ -251,7 +307,16 @@ conn.execute("""
 
 ## 🛠️ Common Tasks
 
-### Materialize All Assets
+### View the DuckDB Database
+After materializing assets, you can explore the database:
+
+```bash
+python open_duckdb_ui.py
+```
+
+This opens a web UI to query and explore your data!
+
+### Materialize All Assets (Command Line)
 ```bash
 dagster asset materialize -a
 ```
@@ -263,7 +328,7 @@ dagster job execute -j daily_analytics_job
 
 ### Launch a Run for a Partition
 ```bash
-dagster asset materialize -a daily_partitioned_sales --partition 2023-11-05
+dagster asset materialize -a monthly_partitioned_sales --partition 2024-05-01
 ```
 
 ## 📝 Customization Ideas
@@ -277,23 +342,45 @@ dagster asset materialize -a daily_partitioned_sales --partition 2023-11-05
 
 ## 🐛 Troubleshooting
 
+### Python Not Found
+- **Windows**: Make sure you checked "Add Python to PATH" during installation
+- **Mac/Linux**: Try using `python3` instead of `python`
+
+### Permission Denied (setup.sh)
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
 ### Import Errors
 ```bash
-# Reinstall in development mode
+# Make sure virtual environment is activated
+source venv/bin/activate  # Mac/Linux
+venv\Scripts\activate     # Windows
+
+# Reinstall
 pip install -e "."
+```
+
+### Port 3000 Already in Use
+```bash
+# Use a different port
+dagster dev -p 3001
 ```
 
 ### DuckDB Locked
 ```bash
 # Close any open connections and restart Dagster
+# Windows: Close Command Prompt/PowerShell windows
+# Mac/Linux:
 pkill -f dagster
 dagster dev
 ```
 
 ### Assets Not Showing
-- Ensure you're in the project directory
-- Check that `__init__.py` loads all assets correctly
-- Restart the Dagster daemon
+- Make sure you're in the correct project directory
+- Try restarting: Stop Dagster (Ctrl+C) and run `dagster dev` again
+- Check the terminal for any error messages
 
 ## 📚 Resources
 
