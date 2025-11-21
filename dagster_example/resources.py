@@ -1,14 +1,20 @@
 """DuckDB resource for Dagster."""
 
 import os
+import sys
 from pathlib import Path
 from typing import Optional
 from contextlib import contextmanager
-import fcntl
 import time
 
 import duckdb
 from dagster import ConfigurableResource
+
+# Cross-platform file locking
+if sys.platform == "win32":
+    import msvcrt
+else:
+    import fcntl
 
 
 class DuckDBResource(ConfigurableResource):
@@ -16,12 +22,31 @@ class DuckDBResource(ConfigurableResource):
     
     database_path: str = "data/warehouse/analytics.duckdb"
     
+    def _lock_file(self, file_handle):
+        """Lock a file (platform-specific implementation)."""
+        if sys.platform == "win32":
+            # Windows: lock the first byte of the file
+            msvcrt.locking(file_handle.fileno(), msvcrt.LK_LOCK, 1)
+        else:
+            # Unix/Linux/Mac: use fcntl
+            fcntl.flock(file_handle.fileno(), fcntl.LOCK_EX)
+    
+    def _unlock_file(self, file_handle):
+        """Unlock a file (platform-specific implementation)."""
+        if sys.platform == "win32":
+            # Windows: unlock the first byte
+            msvcrt.locking(file_handle.fileno(), msvcrt.LK_UNLCK, 1)
+        else:
+            # Unix/Linux/Mac: use fcntl
+            fcntl.flock(file_handle.fileno(), fcntl.LOCK_UN)
+    
     @contextmanager
     def get_connection(self):
         """Get a DuckDB connection with proper concurrency handling.
         
         Uses file-based locking to serialize database access across
         multiple processes (Dagster's multiprocess executor).
+        Works on both Windows and Unix-like systems.
         """
         # Ensure directory exists
         db_path = Path(self.database_path)
@@ -33,7 +58,7 @@ class DuckDBResource(ConfigurableResource):
         
         try:
             # Acquire exclusive lock (blocks until available)
-            fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+            self._lock_file(lock_file)
             
             # Now we have exclusive access - connect to DuckDB
             conn = duckdb.connect(str(db_path), read_only=False)
@@ -43,7 +68,7 @@ class DuckDBResource(ConfigurableResource):
                 conn.close()
         finally:
             # Release the lock
-            fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+            self._unlock_file(lock_file)
             lock_file.close()
     
     def execute_query(self, query: str):
