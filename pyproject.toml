@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dagster-example"
+version = "0.1.0"
+description = "Example Dagster project with CSV files and DuckDB"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "dagster>=1.5.0",
+    "dagster-webserver>=1.5.0",
+    "duckdb>=0.9.0",
+    "pandas>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "dagster-test>=1.5.0",
+]
+
+[tool.dagster]
+module_name = "dagster_example"

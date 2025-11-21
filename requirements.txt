@@ -1,0 +1,4 @@
+dagster>=1.5.0
+dagster-webserver>=1.5.0
+duckdb>=1.0
+pandas>=2.0.0

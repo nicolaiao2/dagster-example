@@ -1,0 +1,124 @@
+┌─────────────────────────────────────────────────────────────┐
+│                  DAGSTER QUICK REFERENCE                    │
+└─────────────────────────────────────────────────────────────┘
+
+📖 START HERE
+──────────────────────────────────────────────────────────────
+  Open:  INDEX.md  (Documentation navigator)
+
+
+⚡ QUICK START
+──────────────────────────────────────────────────────────────
+  1. pip install -e "."
+  2. dagster dev
+  3. Open http://localhost:3000
+  4. Materialize assets
+
+
+🎓 FOR YOUR COWORKER
+──────────────────────────────────────────────────────────────
+  • Show them INDEX.md first
+  • Walk through QUICKSTART.md together
+  • Let them materialize assets
+  • Reference CHEATSHEET.md
+
+
+📂 PROJECT STRUCTURE
+──────────────────────────────────────────────────────────────
+  dagster_example/
+    ├── assets/           ← 13 example assets
+    ├── resources.py      ← DuckDB connection
+    ├── jobs.py           ← 3 job definitions
+    ├── schedules.py      ← Daily schedule
+    └── sensors.py        ← File watchers
+
+  data/
+    ├── raw/              ← 3 CSV files
+    ├── processed/        ← Outputs
+    └── warehouse/        ← DuckDB database
+
+
+✨ WHAT'S INCLUDED
+──────────────────────────────────────────────────────────────
+  Assets:      13 (loading, transforms, analytics)
+  Jobs:        3 (etl, analytics, daily)
+  Schedules:   1 (daily at 6 AM)
+  Sensors:     2 (file monitoring)
+  Resources:   1 (DuckDB)
+  Tests:       Example test suite
+  Docs:        7 comprehensive guides
+
+
+📊 ASSETS OVERVIEW
+──────────────────────────────────────────────────────────────
+  Raw Data (Group: raw_data)
+    • raw_customers    → Load customers.csv
+    • raw_products     → Load products.csv
+    • raw_sales        → Load sales.csv
+
+  Transforms (Group: transformed_data)
+    • enriched_sales   → Join all tables
+    • product_metrics  → Calculate margins
+
+  Analytics (Group: analytics)
+    • daily_sales_summary      → Daily metrics
+    • customer_analytics       → Customer LTV
+    • category_performance     → Category stats
+    • state_sales_analysis     → Geographic
+    • product_recommendations  → Co-purchases
+
+  Partitioned (Group: partitioned)
+    • daily_partitioned_sales  → By date
+
+
+🔧 COMMON COMMANDS
+──────────────────────────────────────────────────────────────
+  Start:       dagster dev
+  Test:        pytest tests/
+  Query:       python query_example.py
+  List:        dagster asset list -m dagster_example
+  Run Job:     dagster job execute -j daily_analytics_job
+
+
+📚 DOCUMENTATION MAP
+──────────────────────────────────────────────────────────────
+  INDEX.md         → Start here! Doc navigator
+  README.md        → Project overview
+  QUICKSTART.md    → Step-by-step tutorial
+  EXAMPLES.md      → Code patterns (767 lines)
+  ARCHITECTURE.md  → System design & graphs
+  CHEATSHEET.md    → Quick reference
+  SUMMARY.md       → Setup complete summary
+
+
+🎯 DEMO TIMES
+──────────────────────────────────────────────────────────────
+  5 min:   Show UI, materialize one asset
+  15 min:  Run job, explain concepts
+  30 min:  Hands-on tutorial
+  60 min:  Full workshop
+
+
+💡 KEY CONCEPTS SHOWN
+──────────────────────────────────────────────────────────────
+  ✓ Assets & Dependencies
+  ✓ Resources & Reusability
+  ✓ Jobs & Orchestration
+  ✓ Schedules & Automation
+  ✓ Sensors & Events
+  ✓ Partitions & Time-series
+  ✓ Metadata & Logging
+  ✓ Testing & Best Practices
+
+
+🔗 HELP
+──────────────────────────────────────────────────────────────
+  Docs:  https://docs.dagster.io
+  Learn: https://dagster.io/university
+  Chat:  https://dagster.io/slack
+
+
+┌─────────────────────────────────────────────────────────────┐
+│  Ready to start? Run: dagster dev                           │
+│  Then open: http://localhost:3000                           │
+└─────────────────────────────────────────────────────────────┘

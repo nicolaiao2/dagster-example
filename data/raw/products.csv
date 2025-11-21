@@ -1,0 +1,11 @@
+product_id,product_name,category,price,cost
+101,Laptop Pro,Electronics,1299.99,850.00
+102,Wireless Mouse,Electronics,29.99,12.00
+103,Desk Chair,Furniture,249.99,120.00
+104,Standing Desk,Furniture,599.99,300.00
+105,Mechanical Keyboard,Electronics,149.99,70.00
+106,Monitor 27",Electronics,399.99,200.00
+107,Desk Lamp,Furniture,79.99,35.00
+108,Webcam HD,Electronics,89.99,40.00
+109,Bookshelf,Furniture,149.99,60.00
+110,USB Hub,Electronics,39.99,15.00
