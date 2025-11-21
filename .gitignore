@@ -26,10 +26,12 @@ ENV/
 
 # Dagster
 .dagster_home/
-tmp*/
+.tmp*/
 
 # Data (keep structure, ignore generated files)
 data/processed/*
 !data/processed/.gitkeep
 data/warehouse/*
 !data/warehouse/.gitkeep
+
+.env
