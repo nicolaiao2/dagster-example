@@ -48,7 +48,7 @@ Once Dagster is running, you'll see the web UI where you can:
 - Click any asset and press "Materialize" to run it
 - See the results and logs in real-time
 
-> **📚 Want to learn more?** Check out [INDEX.md](INDEX.md) for complete documentation!
+> **📚 Want to learn more?** Check out [docs/INDEX.md](docs/INDEX.md) for complete documentation!
 
 ## 🎯 Overview
 
