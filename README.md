@@ -2,7 +2,7 @@
 
 A comprehensive example project demonstrating Dagster capabilities with CSV files and DuckDB.
 
-## ⚡ Quick Start (No Programming Knowledge Needed!)
+## ⚡ Quick Start (Minimal Programming Knowledge Needed)
 
 ### Prerequisites
 - **Python 3.8 or higher** installed on your computer
